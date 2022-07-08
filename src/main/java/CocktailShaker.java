@@ -9,19 +9,22 @@ public class CocktailShaker {
 
     public static void main(String[] args) {
 
-        int [] array = new int [] {0,4,6,1,2,72134,123,2,42134,621,1,34234};
+        int[] array = new int[] {0,4,6,1,2,72134,123,2,42134,621,1,34234};
         sort(array);
 
-        array = new int [] {};
+        array = new int[] {};
         sort(array);
 
-        array = new int [] {0};
+        array = new int[] {0};
         sort(array);
 
-        array = new int [] {1,2};
+        array = new int[] {1,2};
         sort(array);
 
-        array = new int [] {2,1};
+        array = new int[] {2,1};
+        sort(array);
+
+        array = new int[] {1,5,2,9,0};
         sort(array);
 
     }
@@ -30,7 +33,6 @@ public class CocktailShaker {
         System.out.println("Original array: " + Arrays.toString(array));
         int first = 0;
         int last = array.length;
-        int position = 0;
         boolean forward = true;
 
         while (last > first) {
