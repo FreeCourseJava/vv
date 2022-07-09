@@ -33,30 +33,27 @@ public class CocktailShaker {
         System.out.println("Original array: " + Arrays.toString(array));
         int first = 0;
         int last = array.length - 1;
-        boolean forward = true;
+        int swapped = array.length - 1;
 
-        while (last >= first) {
-            if (forward) {
-                for (int i = first; i < last ; i++) {
-                    if (array[i]>array[i+1]) {
-                        swap(array,i,i+1);
-                    }
+        do {
+            for (int i = first; i < last; i++) {
+                if (array[i] > array[i + 1]) {
+                    swap(array, i, i + 1);
+                    swapped = i;
                 }
-                last--;
             }
-            else {
-                for (int i = last; i > first ; i--) {
-                    if (array[i-1]>array[i]) {
-                        swap(array,i,i-1);
-                    }
+            last = swapped;
+
+            for (int i = last; i > first; i--) {
+                if (array[i - 1] > array[i]) {
+                    swap(array, i, i - 1);
+                    swapped = i;
                 }
-                first++;
-
             }
+            first = swapped;
 
-            forward = !forward;
+        } while (last > first);
 
-        }
         System.out.println("Sorted array: " + Arrays.toString(array) + "\n");
     }
 
