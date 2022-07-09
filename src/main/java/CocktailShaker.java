@@ -32,12 +32,12 @@ public class CocktailShaker {
     public static void sort(int[] array) {
         System.out.println("Original array: " + Arrays.toString(array));
         int first = 0;
-        int last = array.length;
+        int last = array.length - 1;
         boolean forward = true;
 
-        while (last > first) {
+        while (last >= first) {
             if (forward) {
-                for (int i = first; i < last -1 ; i++) {
+                for (int i = first; i < last ; i++) {
                     if (array[i]>array[i+1]) {
                         swap(array,i,i+1);
                     }
