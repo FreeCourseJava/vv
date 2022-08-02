@@ -6,13 +6,51 @@ public class Street {
     public boolean isMainRoad;
     public int length;
     public int avgWidth;
-    public Building[] buildings;
-    public Park[] parks;
+    private DynamicArray buildings;
+    public DynamicArray parks;
 
     public Street (String name, int length, int avgWidth) {
         this.name = name;
         this.length = length;
         this.avgWidth = avgWidth;
+        this.buildings = new DynamicArray();
+        this.parks = new DynamicArray();
+    }
+
+    public void addBuilding(Building building) {
+        this.buildings.add(building);
+    }
+
+    public int countBuildings(){
+        return this.buildings.getSize();
+    }
+
+    public int calcBuildingsArea() {
+        int result = 0;
+
+        for (int i = 0; i < this.buildings.getSize(); i++) {
+            result += ((Building) buildings.getItem(i)).calcArea();
+        }
+
+        return result;
+    }
+
+    public void addPark(Park park) {
+        this.parks.add(park);
+    }
+
+    public int countParks(){
+        return this.parks.getSize();
+    }
+
+    public int calcParksArea() {
+        int result = 0;
+
+        for (int i = 0; i < this.parks.getSize(); i++) {
+            result += ((Park) parks.getItem(i)).calcArea();
+        }
+
+        return result;
     }
 
 }

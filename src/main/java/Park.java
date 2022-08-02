@@ -10,4 +10,9 @@ public class Park {
         this.length = length;
         this.width = width;
     }
+
+    public int calcArea () {
+        return length * width;
+    }
+
 }
