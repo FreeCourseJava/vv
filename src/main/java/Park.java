@@ -1,5 +1,7 @@
 package main.java;
 
+import static java.lang.Math.multiplyExact;
+
 public class Park {
     public String name;
     public int length;
@@ -10,4 +12,9 @@ public class Park {
         this.length = length;
         this.width = width;
     }
+
+    public int calcArea () {
+        return multiplyExact(this.length, this.width);
+    }
+
 }
