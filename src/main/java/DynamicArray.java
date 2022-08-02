@@ -13,19 +13,19 @@ public class DynamicArray {
     }
 
     public int getSize() {
-        return size;
+        return this.size;
     }
 
     public void add(Object item) {
-        size ++;
-        list = Arrays.copyOf(list, size);
-        list[size - 1] = item;
+        this.size ++;
+        this.list = Arrays.copyOf(this.list, this.size);
+        this.list[this.size - 1] = item;
 
     }
 
     public Object getItem(int index) {
-        if (index >=0 &&  index < size) {
-            return list[index];
+        if (index >= 0 &&  index < this.size) {
+            return this.list[index];
         }
         else {
             return null;

@@ -1,5 +1,7 @@
 package main.java;
 
+import static java.lang.Math.addExact;
+
 public class City {
     public String name;
     public int maxWidth;
@@ -25,8 +27,9 @@ public class City {
 
     public int countBuildings () {
         int result = 0;
+
         for (int i = 0; i < this.streets.getSize(); i++) {
-            result += ((Street) streets.getItem(i)).countBuildings();
+            result = addExact(result, ((Street) this.streets.getItem(i)).countBuildings());
         }
 
         return result;
@@ -36,7 +39,7 @@ public class City {
         int result = 0;
 
         for (int i = 0; i < this.streets.getSize(); i++) {
-            result += ((Street) streets.getItem(i)).calcBuildingsArea();
+            result = addExact(result, ((Street) this.streets.getItem(i)).calcBuildingsArea());
         }
 
         return result;
@@ -46,7 +49,7 @@ public class City {
         int result = 0;
 
         for (int i = 0; i < this.streets.getSize(); i++) {
-            result += ((Street) streets.getItem(i)).calcParksArea();
+            result = addExact(result, ((Street) this.streets.getItem(i)).calcParksArea());
         }
 
         return result;

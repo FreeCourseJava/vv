@@ -1,5 +1,7 @@
 package main.java;
 
+import static java.lang.Math.addExact;
+
 public class Street {
     public String name;
     public int registryNumber;
@@ -29,7 +31,7 @@ public class Street {
         int result = 0;
 
         for (int i = 0; i < this.buildings.getSize(); i++) {
-            result += ((Building) buildings.getItem(i)).calcArea();
+            result = addExact(result, ((Building) this.buildings.getItem(i)).calcArea());
         }
 
         return result;
@@ -47,7 +49,7 @@ public class Street {
         int result = 0;
 
         for (int i = 0; i < this.parks.getSize(); i++) {
-            result += ((Park) parks.getItem(i)).calcArea();
+            result = addExact(result, ((Park) this.parks.getItem(i)).calcArea());
         }
 
         return result;
