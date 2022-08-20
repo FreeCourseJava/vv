@@ -42,7 +42,7 @@ public class DoublyLinkedList {
             return true;
         }
 
-        System.out.println("ERROR: List size limit was reached");
+        System.err.println("ERROR: List size limit was reached");
         return false;
 
     }
@@ -50,8 +50,8 @@ public class DoublyLinkedList {
     // Adding the first one if the list is empty
     private boolean addIfEmpty(Object value) {
         if (this.size == 0) {
+            this.size++;
             ListNode newNode = new ListNode(null, null, value);
-            this.increaseSize();
             this.head = newNode;
             this.tail = newNode;
             return true;
@@ -72,20 +72,32 @@ public class DoublyLinkedList {
     }
 
     public boolean addToHead(Object value) {
-        if (!addIfEmpty(value) && increaseSize()) {
+
+        if (addIfEmpty(value)) {
+            return true;
+        }
+
+        if (increaseSize()) {
             ListNode newNode = new ListNode(null, this.head, value);
             this.head.prev = newNode;
             this.head = newNode;
+
             return true;
         }
         return false;
     }
 
     public boolean addToTail(Object value) {
-        if (!addIfEmpty(value) && increaseSize()) {
+
+        if (addIfEmpty(value)) {
+            return true;
+        }
+
+        if (increaseSize()) {
             ListNode newNode = new ListNode(this.tail, null, value);
             this.tail.next = newNode;
             this.tail = newNode;
+
             return true;
         }
         return false;
@@ -94,6 +106,7 @@ public class DoublyLinkedList {
     public int getIndex(Object obj) {
         ListNode node = this.head;
         int i = 0;
+
         while (node != null) {
             if (obj.equals(node.value)) {
                 return i;
@@ -102,8 +115,13 @@ public class DoublyLinkedList {
             i++;
             node = node.next;
         }
-        return -1;
 
+        return -1;
+    }
+
+    public Object getValue(int index) {
+        ListNode node = findNode(index);
+        return node == null ? null : node.value;
     }
 
     public boolean remove(int index) {
@@ -177,11 +195,11 @@ public class DoublyLinkedList {
 
     }
 
-    public Object getFirst() {
+    public Object getHead() {
         return this.head.value;
     }
 
-    public Object getLast() {
+    public Object getTail() {
         return this.tail.value;
     }
 
