@@ -1,6 +1,5 @@
 package main.java;
 
-import static java.lang.Math.addExact;
 
 public class City {
     public String name;
@@ -8,7 +7,7 @@ public class City {
     public int maxLength;
     private DynamicArray streets;
 
-    public City (String name, int maxWidth, int maxLength, DynamicArray streets) {
+    public City(String name, int maxWidth, int maxLength, DynamicArray streets) {
         this(name, maxWidth, maxLength);
         this.streets = streets;
 
@@ -25,11 +24,11 @@ public class City {
         this.streets.add(street);
     }
 
-    public int countBuildings () {
+    public int countBuildings() {
         int result = 0;
 
         for (int i = 0; i < this.streets.getSize(); i++) {
-            result = addExact(result, ((Street) this.streets.getItem(i)).countBuildings());
+            result = Math.addExact(result, ((Street) this.streets.getItem(i)).countBuildings());
         }
 
         return result;
@@ -39,7 +38,7 @@ public class City {
         int result = 0;
 
         for (int i = 0; i < this.streets.getSize(); i++) {
-            result = addExact(result, ((Street) this.streets.getItem(i)).calcBuildingsArea());
+            result = Math.addExact(result, ((Street) this.streets.getItem(i)).calcBuildingsArea());
         }
 
         return result;
@@ -49,7 +48,7 @@ public class City {
         int result = 0;
 
         for (int i = 0; i < this.streets.getSize(); i++) {
-            result = addExact(result, ((Street) this.streets.getItem(i)).calcParksArea());
+            result = Math.addExact(result, ((Street) this.streets.getItem(i)).calcParksArea());
         }
 
         return result;
