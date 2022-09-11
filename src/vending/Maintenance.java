@@ -1,15 +1,17 @@
 package vending;
 
 public interface Maintenance {
-    boolean putOnMaintenance();
+    void putOnMaintenance();
 
-    boolean takeOutOfMaintenance();
+    void takeOutOfMaintenance();
 
-    boolean chooseProduct(int itemNum);
+    void load();
 
-    boolean load(int qty);
+    void setPrice();
 
-    void setPrice(double price);
+    void changeProduct();
+
+    void addProduct();
 
 
 }

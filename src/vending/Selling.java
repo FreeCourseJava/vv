@@ -2,12 +2,11 @@ package vending;
 
 public interface Selling {
 
-    boolean chooseProduct(int itemNum);
+    void buy();
 
-    boolean takeMoney(double itemNum);
+    void pay();
 
-    boolean returnChange(double itemNum);
+    void returnChange();
 
-    boolean buy(int itemNum);
 
 }
