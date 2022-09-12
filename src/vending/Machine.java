@@ -43,12 +43,14 @@ public class Machine implements Selling, Maintenance {
                 this.moneyIn -= currentTray.getPrice();
                 currentTray.removeItems(1);
                 System.out.println("У вас на счету: " + this.moneyIn);
-              } else if (currentTray.getQty() > 0) {
+            } else if (currentTray.getQty() > 0) {
                 System.out.println("Ваш выбор " + currentTray.getDesc());
                 System.out.println("На счету недостаточно денег для покупки - " + this.moneyIn);
-             } else {
+            } else {
                 System.out.println("К сожалению, этот товар закончился. Попробуйте выбрать другой");
             }
+        } else if (choice == 0) {
+            return;
         } else {
             System.out.println("Вы ввели неверный номер, попробуйте ещё раз");
         }
@@ -132,6 +134,8 @@ public class Machine implements Selling, Maintenance {
             System.out.println("Новое количество товара : " + currentTray.getQty());
 
 
+        } else if (choice == 0) {
+            return;
         } else {
             System.out.println("Вы ввели неверный номер, попробуйте ещё раз");
         }
@@ -158,6 +162,8 @@ public class Machine implements Selling, Maintenance {
             currentTray.setPrice(price);
             System.out.println("Цена изменена");
 
+        } else if (choice == 0) {
+            return;
         } else {
             System.out.println("Вы ввели неверный номер, попробуйте ещё раз");
         }
@@ -181,6 +187,8 @@ public class Machine implements Selling, Maintenance {
             this.trays[choice - 1] = this.setNewTray();
             System.out.println("Товар заменён");
 
+        } else if (choice == 0) {
+            return;
         } else {
             System.out.println("Вы ввели неверный номер, попробуйте ещё раз");
         }
