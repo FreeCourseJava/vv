@@ -118,6 +118,7 @@ public class Machine implements Selling, Maintenance {
         System.out.println("-=ЗАГРУЗКА ТОВАРА=-");
         if (!this.maintenanceMode) {
             System.out.println("Автомат не в режиме обслуживания");
+            return;
         }
 
         this.listing();
@@ -147,6 +148,7 @@ public class Machine implements Selling, Maintenance {
         System.out.println("-=УСТАНОВКА ЦЕНЫ=-");
         if (!this.maintenanceMode) {
             System.out.println("Автомат не в режиме обслуживания");
+            return;
         }
 
         this.listing();
@@ -175,6 +177,7 @@ public class Machine implements Selling, Maintenance {
         System.out.println("-=СМЕНА ПРОДУКТА=-");
         if (!this.maintenanceMode) {
             System.out.println("Автомат не в режиме обслуживания");
+            return;
         }
 
 
@@ -200,6 +203,7 @@ public class Machine implements Selling, Maintenance {
         System.out.println("-=ДОБАВЛЕНИЕ НОВОГО ПРОДУКТА=-");
         if (!this.maintenanceMode) {
             System.out.println("Автомат не в режиме обслуживания");
+            return;
         }
 
         Tray[] trays = new Tray[this.trays.length + 1];
