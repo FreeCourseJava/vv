@@ -55,4 +55,12 @@ public class Street {
         return result;
     }
 
+    public String getJsonString() {
+        JSON res = new JSON();
+        res.startArray("building");
+        for (int i=0; i<this.buildings.getSize();i++) {
+            res.addArrayItem(((Building) this.buildings.getItem(i)).getJson());
+        }
+        return res.closeArray().toString();
+    }
 }

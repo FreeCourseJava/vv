@@ -13,9 +13,21 @@ public class Building {
         this.width = width;
     }
 
-    public int calcArea () {
+    public int calcArea() {
         return multiplyExact(this.length, this.width);
     }
 
+    public JSON getJson() {
+        return new JSON()
+                .startObject()
+                .addIntField("number", number)
+                .addIntField("length", length)
+                .addIntField("width", width)
+                .closeObject();
+    }
+
+    public String getJsonString() {
+        return getJson().toString();
+    }
 
 }

@@ -53,18 +53,20 @@ public class ClassesBasics {
         city2.addStreet(street11);
         city2.addStreet(street12);
 
+        System.out.println(building001.getJsonString());
+        System.out.println(street01.getJsonString());
 
         // Test calculation methods
 
-        System.out.println("city1.countBuildings(): " + city1.countBuildings());
-        System.out.println("city1.calcBuildingsArea(): " + city1.calcBuildingsArea());
-        System.out.println("city1.calcParksArea(): " + city1.calcParksArea());
-
-        System.out.println("street01.countBuildings(): " + street01.countBuildings());
-        System.out.println("street01.calcBuildingsArea(): " + street01.calcBuildingsArea());
-
-        System.out.println("street02.countBuildings(): " + street02.countBuildings());
-        System.out.println("street02.calcBuildingsArea(): " + street02.calcBuildingsArea());
+//        System.out.println("city1.countBuildings(): " + city1.countBuildings());
+//        System.out.println("city1.calcBuildingsArea(): " + city1.calcBuildingsArea());
+//        System.out.println("city1.calcParksArea(): " + city1.calcParksArea());
+//
+//        System.out.println("street01.countBuildings(): " + street01.countBuildings());
+//        System.out.println("street01.calcBuildingsArea(): " + street01.calcBuildingsArea());
+//
+//        System.out.println("street02.countBuildings(): " + street02.countBuildings());
+//        System.out.println("street02.calcBuildingsArea(): " + street02.calcBuildingsArea());
 
 
 
