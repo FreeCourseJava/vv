@@ -13,6 +13,12 @@ public class Building {
         this.width = width;
     }
 
+    public Building(JSON json) {
+        this.number = number;
+        this.length = length;
+        this.width = width;
+    }
+
     public int calcArea() {
         return multiplyExact(this.length, this.width);
     }

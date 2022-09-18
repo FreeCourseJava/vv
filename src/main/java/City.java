@@ -55,5 +55,21 @@ public class City {
         return result;
     }
 
+    public JSON getJson () {
+        JSON res = new JSON().startObject();
+        res.startArray("streets");
+        for (int i=0; i<this.streets.getSize();i++) {
+            res.addArrayItem(((Street) this.streets.getItem(i)).getJson());
+        }
+        res.closeArray();
 
+        res.addStrField("name", name)
+                .addIntField("maxWidth",this.maxWidth)
+                .addIntField("maxLength", this.maxLength);
+
+        return res.closeObject();
+    }
+    public String getJsonString() {
+        return this.getJson().toString();
+    }
 }

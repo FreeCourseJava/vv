@@ -55,12 +55,32 @@ public class Street {
         return result;
     }
 
-    public String getJsonString() {
-        JSON res = new JSON();
+
+    public JSON getJson () {
+        JSON res = new JSON().startObject();
         res.startArray("building");
         for (int i=0; i<this.buildings.getSize();i++) {
             res.addArrayItem(((Building) this.buildings.getItem(i)).getJson());
         }
-        return res.closeArray().toString();
+        res.closeArray();
+
+        res.startArray("parks");
+        for (int i=0; i<this.parks.getSize();i++) {
+            res.addArrayItem(((Park) this.parks.getItem(i)).getJson());
+        }
+        res.closeArray();
+
+        res.addStrField("name", name)
+                .addIntField("length",this.length)
+                .addIntField("avgWidth", this.avgWidth)
+                .addBooleanField("isMainRoad", this.isMainRoad)
+                .addIntField("registryNumber",this.registryNumber);
+
+
+        return res.closeObject();
     }
+    public String getJsonString() {
+        return this.getJson().toString();
+    }
+
 }

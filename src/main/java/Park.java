@@ -17,4 +17,16 @@ public class Park {
         return multiplyExact(this.length, this.width);
     }
 
+    public JSON getJson() {
+        return new JSON()
+                .startObject()
+                .addStrField("name", name)
+                .addIntField("length", length)
+                .addIntField("width", width)
+                .closeObject();
+    }
+
+    public String getJsonString() {
+        return getJson().toString();
+    }
 }

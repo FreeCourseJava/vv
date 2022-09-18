@@ -53,8 +53,9 @@ public class ClassesBasics {
         city2.addStreet(street11);
         city2.addStreet(street12);
 
-        System.out.println(building001.getJsonString());
-        System.out.println(street01.getJsonString());
+        System.out.println(city1.getJsonString());
+        System.out.println("----");
+        System.out.println(city2.getJsonString());
 
         // Test calculation methods
 
