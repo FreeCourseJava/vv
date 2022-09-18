@@ -1,21 +1,11 @@
 package main.java;
 
-import static java.lang.Math.multiplyExact;
 
-public class Building {
+public class Building extends Measurable {
     public int number;
-    public int length;
-    public int width;
 
     public Building(int number, int length, int width) {
+        super(length, width);
         this.number = number;
-        this.length = length;
-        this.width = width;
     }
-
-    public int calcArea () {
-        return multiplyExact(this.length, this.width);
-    }
-
-
 }
