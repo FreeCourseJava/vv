@@ -1,9 +1,8 @@
 package main.java;
 
-import java.nio.charset.Charset;
 
 public class JSONReader {
-    private String json;
+    private final String json;
 
     public JSONReader(String json) {
         if (json != null) {
@@ -13,37 +12,32 @@ public class JSONReader {
         }
     }
 
-    public int getIntFiled(String name) {
+    public int getIntFiled(String name) throws JsonReadException {
 
         int nestedLevel = 0;
-        for (int i = 0; i < json.length(); i++) {
-            // Тут идём посимвольно, смотрим где начало объекта,
-            // можно проверить, что началось начало поля, но нет начала объекта - тогда иключение
-            // далее ищем имя, сравниваем тип, есои не совпадает - исключение
-            if (json.charAt(i) == '{') {
+        for (int i = 0; i < this.json.length(); i++) {
+            if (this.json.charAt(i) == '{') {
                 nestedLevel++;
-            } else if (json.charAt(i) == '}') {
+            } else if (this.json.charAt(i) == '}') {
                 nestedLevel--;
-            } else if (json.charAt(i) == '\"' && nestedLevel == 1) {
+            } else if (this.json.charAt(i) == '\"' && nestedLevel == 1) {
                 int nameFirstPos = i + 1;
-                int nameLastPos = json.indexOf('\"', nameFirstPos);
-                //System.out.println(json.substring(nameFirstPos, nameLastPos));
-                if (name.equals(json.substring(nameFirstPos, nameLastPos))) {
-//                    System.out.println(json.substring(nameFirstPos, nameLastPos));
+                int nameLastPos = this.json.indexOf('\"', nameFirstPos);
+                if (nameLastPos > 0 && name.equals(this.json.substring(nameFirstPos, nameLastPos))) {
                     String strValue = "";
                     int pos = nameLastPos + 1;
                     boolean readStarted = false;
                     boolean readEnded = false;
                     do {
-                        if (Character.isDigit(json.charAt(pos))) {
-                            if (readStarted != true) {
+                        if (Character.isDigit(this.json.charAt(pos))) {
+                            if (!readStarted) {
                                 readStarted = true;
                             }
-                            strValue += json.charAt(pos);
+                            strValue += this.json.charAt(pos);
                         } else if (readStarted && strValue.length() > 0) {
                             readEnded = true;
                         } else if (readStarted) {
-                            System.out.println("error");
+                            throw new JsonReadException("input file doesn't container correct json");
                         }
                         pos++;
 
@@ -54,41 +48,36 @@ public class JSONReader {
             }
         }
 
-        return -1;
+        throw new JsonReadException("Integer field \""+name +"\" was not found");
     }
 
-    public String getStrFiled(String name) {
+    public String getStrFiled(String name) throws JsonReadException {
 
         int nestedLevel = 0;
-        for (int i = 0; i < json.length(); i++) {
-            // Тут идём посимвольно, смотрим где начало объекта,
-            // можно проверить, что началось начало поля, но нет начала объекта - тогда иключение
-            // далее ищем имя, сравниваем тип, есои не совпадает - исключение
-            if (json.charAt(i) == '{') {
+        for (int i = 0; i < this.json.length(); i++) {
+            if (this.json.charAt(i) == '{') {
                 nestedLevel++;
-            } else if (json.charAt(i) == '}') {
+            } else if (this.json.charAt(i) == '}') {
                 nestedLevel--;
-            } else if (json.charAt(i) == '\"' && nestedLevel == 1) {
+            } else if (this.json.charAt(i) == '\"' && nestedLevel == 1) {
                 int nameFirstPos = i + 1;
-                int nameLastPos = json.indexOf('\"', nameFirstPos);
-                //System.out.println(json.substring(nameFirstPos, nameLastPos));
-                if (name.equals(json.substring(nameFirstPos, nameLastPos))) {
-//                    System.out.println(json.substring(nameFirstPos, nameLastPos));
+                int nameLastPos = this.json.indexOf('\"', nameFirstPos);
+                if (nameLastPos > 0 && name.equals(this.json.substring(nameFirstPos, nameLastPos))) {
                     String strValue = "";
                     int pos = nameLastPos + 1;
                     boolean readStarted = false;
                     boolean readEnded = false;
                     do {
-                        if (json.charAt(pos) == '\"') {
+                        if (this.json.charAt(pos) == '\"') {
                             if (!readStarted) {
                                 readStarted = true;
-                            } else if (readStarted && strValue.length() > 0) {
+                            } else if (strValue.length() > 0) {
                                 readEnded = true;
                             } else {
-                                System.out.println("error");
+                                throw new JsonReadException("input file doesn't container correct json");
                             }
                         } else if (readStarted) {
-                            strValue += json.charAt(pos);
+                            strValue += this.json.charAt(pos);
                         }
                         pos++;
                     } while (!readEnded);
@@ -98,42 +87,37 @@ public class JSONReader {
             }
         }
 
-        return null;
+        throw new JsonReadException("String field \""+name +"\" was not found");
     }
 
 
-    public boolean getBooleanFiled(String name) {
+    public boolean getBooleanFiled(String name) throws JsonReadException {
 
         int nestedLevel = 0;
-        for (int i = 0; i < json.length(); i++) {
-            // Тут идём посимвольно, смотрим где начало объекта,
-            // можно проверить, что началось начало поля, но нет начала объекта - тогда иключение
-            // далее ищем имя, сравниваем тип, есои не совпадает - исключение
-            if (json.charAt(i) == '{') {
+        for (int i = 0; i < this.json.length(); i++) {
+            if (this.json.charAt(i) == '{') {
                 nestedLevel++;
-            } else if (json.charAt(i) == '}') {
+            } else if (this.json.charAt(i) == '}') {
                 nestedLevel--;
-            } else if (json.charAt(i) == '\"' && nestedLevel == 1) {
+            } else if (this.json.charAt(i) == '\"' && nestedLevel == 1) {
                 int nameFirstPos = i + 1;
-                int nameLastPos = json.indexOf('\"', nameFirstPos);
-                //System.out.println(json.substring(nameFirstPos, nameLastPos));
-                if (name.equals(json.substring(nameFirstPos, nameLastPos))) {
-//                    System.out.println(json.substring(nameFirstPos, nameLastPos));
+                int nameLastPos = this.json.indexOf('\"', nameFirstPos);
+                if (nameLastPos > 0 && name.equals(this.json.substring(nameFirstPos, nameLastPos))) {
                     String strValue = "";
                     int pos = nameLastPos + 1;
                     boolean readStarted = false;
                     boolean readEnded = false;
                     do {
-                        if (Character.isLetter(json.charAt(pos))) {
+                        if (Character.isLetter(this.json.charAt(pos))) {
                             if (!readStarted) {
                                 readStarted = true;
                             }
-                            strValue += json.charAt(pos);
+                            strValue += this.json.charAt(pos);
                         } else {
                             if (readStarted && strValue.length() > 0) {
                                 readEnded = true;
                             } else if (readStarted) {
-                                System.out.println("error");
+                                throw new JsonReadException("input file doesn't container correct json");
                             }
                         }
                         pos++;
@@ -145,26 +129,21 @@ public class JSONReader {
             }
         }
 
-        return false;
+        throw new JsonReadException("Boolean field \""+name +"\" was not found");
     }
 
-    public String[] getArrayFiled(String name) {
+    public String[] getArrayFiled(String name) throws JsonReadException {
 
         int nestedLevel = 0;
-        for (int i = 0; i < json.length(); i++) {
-            // Тут идём посимвольно, смотрим где начало объекта,
-            // можно проверить, что началось начало поля, но нет начала объекта - тогда иключение
-            // далее ищем имя, сравниваем тип, есои не совпадает - исключение
-            if (json.charAt(i) == '{') {
+        for (int i = 0; i < this.json.length(); i++) {
+            if (this.json.charAt(i) == '{') {
                 nestedLevel++;
-            } else if (json.charAt(i) == '}') {
+            } else if (this.json.charAt(i) == '}') {
                 nestedLevel--;
-            } else if (json.charAt(i) == '\"' && nestedLevel == 1) {
+            } else if (this.json.charAt(i) == '\"' && nestedLevel == 1) {
                 int nameFirstPos = i + 1;
-                int nameLastPos = json.indexOf('\"', nameFirstPos);
-                //System.out.println(json.substring(nameFirstPos, nameLastPos));
-                if (name.equals(json.substring(nameFirstPos, nameLastPos))) {
-//                    System.out.println(json.substring(nameFirstPos, nameLastPos));
+                int nameLastPos = this.json.indexOf('\"', nameFirstPos);
+                if (nameLastPos > 0 && name.equals(this.json.substring(nameFirstPos, nameLastPos))) {
                     int arrayLevel = 0;
 
                     String strValue = "";
@@ -172,35 +151,35 @@ public class JSONReader {
                     int pos = nameLastPos + 1;
                     boolean readEnded = false;
                     do {
-                        if (json.charAt(pos) == '[') {
+                        if (this.json.charAt(pos) == '[') {
                             arrayLevel++;
                             if (arrayLevel == 1) {
                                 pos++;
                                 continue;
                             }
-                            strValue += json.charAt(pos);
-                        } else if (json.charAt(pos) == ']') {
+                            strValue += this.json.charAt(pos);
+                        } else if (this.json.charAt(pos) == ']') {
                             arrayLevel--;
                             if (arrayLevel == 0 && res.length > 0) {
                                 readEnded = true;
                             } else if (arrayLevel == 0) {
-                                System.out.println("error");
+                                throw new JsonReadException("input file doesn't container correct json");
                             } else {
-                                strValue += json.charAt(pos);
+                                strValue += this.json.charAt(pos);
                             }
                         } else if (arrayLevel > 0) {
-                            if (json.charAt(pos) == '{') {
+                            if (this.json.charAt(pos) == '{') {
                                 nestedLevel++;
-                            } else if (json.charAt(pos) == '}') {
+                            } else if (this.json.charAt(pos) == '}') {
                                 nestedLevel--;
                             }
                             if (nestedLevel >= 2) {
-                                strValue += json.charAt(pos);
+                                strValue += this.json.charAt(pos);
 
                             }
                             if (nestedLevel == 1) {
-                                if (json.charAt(pos) != ',') {
-                                    strValue += json.charAt(pos);
+                                if (this.json.charAt(pos) != ',') {
+                                    strValue += this.json.charAt(pos);
                                     String[] tmp = res;
                                     res = new String[tmp.length + 1];
                                     System.arraycopy(tmp, 0, res, 0, tmp.length);
@@ -221,6 +200,10 @@ public class JSONReader {
             }
         }
 
-        return null;
+        throw new JsonReadException("Array \""+name +"\" was not found");
+    }
+    @Override
+    public String toString() {
+        return this.json;
     }
 }

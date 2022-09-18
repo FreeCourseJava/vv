@@ -13,7 +13,7 @@ public class Building {
         this.width = width;
     }
 
-    public Building(String jsonStr) {
+    public Building(String jsonStr) throws JsonReadException {
         JSONReader json = new JSONReader(jsonStr);
         this.number = json.getIntFiled("number");
         this.length = json.getIntFiled("length");

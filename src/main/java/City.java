@@ -8,16 +8,16 @@ public class City {
     public int maxLength;
     private DynamicArray streets;
 
-    public City(String jsonStr) {
+    public City(String jsonStr) throws JsonReadException {
         JSONReader json = new JSONReader(jsonStr);
-        this.name = json.getStrFiled("name");;
-        this.maxWidth = json.getIntFiled("maxWidth");;
-        this.maxLength = json.getIntFiled("maxLength");;
+        this.name = json.getStrFiled("name");
+        this.maxWidth = json.getIntFiled("maxWidth");
+        this.maxLength = json.getIntFiled("maxLength");
 
         this.streets = new DynamicArray();
         String [] streetStr = json.getArrayFiled("streets");
-        for (int i=0; i<streetStr.length; i++){
-            this.streets.add(new Street(streetStr[i]));
+        for (String s : streetStr) {
+            this.streets.add(new Street(s));
         }
 
     }

@@ -1,9 +1,9 @@
 package main.java;
 
-import java.util.Arrays;
+import java.io.*;
 
 public class ClassesBasics {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JsonReadException {
         // City 1 creation
         Building building001 = new Building(1, 10, 10);
         Building building002 = new Building(2, 20, 20);
@@ -55,34 +55,55 @@ public class ClassesBasics {
         city2.addStreet(street11);
         city2.addStreet(street12);
 
-//        System.out.println(city1.getJsonString());
-//        System.out.println("----");
-//        System.out.println(city2.getJsonString());
+        // Test new json methods
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("/tmp/city1.json"))){
+            writer.write(city1.getJsonString());
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
-//        JSONReader reader = new JSONReader(city2.getJsonString());
-//        System.out.println(reader.getIntFiled("maxWidth"));
-//        System.out.println(reader.getStrFiled("name"));
-//        System.out.println(Arrays.toString(reader.getArrayFiled("streets")));
-//        JSONReader reader2 = new JSONReader(street01.getJsonString());
-//        System.out.println(reader2.getBooleanFiled("isMainRoad"));
-//
-//        JSONReader street = new JSONReader(reader.getArrayFiled("streets")[0]);
-//
-//        Building test_building = new Building("{\"number\":101,\"length\":12,\"width\":12}");
-//        System.out.println(test_building.getJsonString());
-//
+        String newCity1Str = "";
+        try(BufferedReader reader = new BufferedReader(new FileReader("/tmp/city1.json"))) {
+            String line = reader.readLine();
+            while (line != null) {
+                newCity1Str += line;
+                line = reader.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
-        City new_city = new City(city1.getJsonString());
+        City new_city1 = new City(newCity1Str);
         System.out.println("=============city1=======================");
         System.out.println("city1.countBuildings(): " + city1.countBuildings());
         System.out.println("city1.calcBuildingsArea(): " + city1.calcBuildingsArea());
         System.out.println("city1.calcParksArea(): " + city1.calcParksArea());
         System.out.println("=============new city1=======================");
-        System.out.println("new_city.countBuildings(): " + new_city.countBuildings());
-        System.out.println("new_city.calcBuildingsArea(): " + new_city.calcBuildingsArea());
-        System.out.println("new_city.calcParksArea(): " + new_city.calcParksArea());
+        System.out.println("newCity1.countBuildings(): " + new_city1.countBuildings());
+        System.out.println("newCity1.calcBuildingsArea(): " + new_city1.calcBuildingsArea());
+        System.out.println("newCity1.calcParksArea(): " + new_city1.calcParksArea());
 
-        City new_city2 = new City(city2.getJsonString());
+        System.out.println();
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("/tmp/city2.json"))){
+            writer.write(city2.getJsonString());
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        String newCity2Str = "";
+        try(BufferedReader reader = new BufferedReader(new FileReader("/tmp/city2.json"))) {
+            String line = reader.readLine();
+            while (line != null) {
+                newCity2Str += line;
+                line = reader.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        City new_city2 = new City(newCity2Str);
         System.out.println("=============city2=======================");
         System.out.println("city2.countBuildings(): " + city2.countBuildings());
         System.out.println("city2.calcBuildingsArea(): " + city2.calcBuildingsArea());
@@ -92,18 +113,13 @@ public class ClassesBasics {
         System.out.println("new_city2.calcBuildingsArea(): " + new_city2.calcBuildingsArea());
         System.out.println("new_city2.calcParksArea(): " + new_city2.calcParksArea());
 
-        // Test calculation methods
-
-//        System.out.println("city1.countBuildings(): " + city1.countBuildings());
-//        System.out.println("city1.calcBuildingsArea(): " + city1.calcBuildingsArea());
-//        System.out.println("city1.calcParksArea(): " + city1.calcParksArea());
-//
-//        System.out.println("street01.countBuildings(): " + street01.countBuildings());
-//        System.out.println("street01.calcBuildingsArea(): " + street01.calcBuildingsArea());
-//
-//        System.out.println("street02.countBuildings(): " + street02.countBuildings());
-//        System.out.println("street02.calcBuildingsArea(): " + street02.calcBuildingsArea());
-
+        System.out.println("------------------Test Exception------------------");
+        try {
+            new JSONReader(street11.getJsonString()).getArrayFiled("Unknown");
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }

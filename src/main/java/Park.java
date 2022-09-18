@@ -7,7 +7,7 @@ public class Park {
     public int length;
     public int width;
 
-    public Park(String jsonStr) {
+    public Park(String jsonStr) throws JsonReadException {
         JSONReader json = new JSONReader(jsonStr);
         this.name = json.getStrFiled("name");
         this.length = json.getIntFiled("length");

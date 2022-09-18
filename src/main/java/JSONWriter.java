@@ -7,74 +7,74 @@ public class JSONWriter {
     private boolean isFirstField = true;
 
     public JSONWriter addIntField(String name, int value) {
-        if (isFirstField) {
-            isFirstField = false;
+        if (this.isFirstField) {
+            this.isFirstField = false;
         } else {
-            json += ",";
+            this.json += ",";
         }
-        json += "\n\"" + name + "\" :" + value;
+        this.json += "\n\"" + name + "\" :" + value;
 
         return this;
     }
 
     public JSONWriter addStrField(String name, String value) {
-        if (isFirstField) {
-            isFirstField = false;
+        if (this.isFirstField) {
+            this.isFirstField = false;
         } else {
-            json += ",";
+            this.json += ",";
         }
-        json += "\n\"" + name + "\" : \"" + value + "\"";
+        this.json += "\n\"" + name + "\" : \"" + value + "\"";
 
         return this;
     }
 
     public JSONWriter addBooleanField(String name, boolean value) {
-        if (isFirstField) {
-            isFirstField = false;
+        if (this.isFirstField) {
+            this.isFirstField = false;
         } else {
-            json += ",";
+            this.json += ",";
         }
-        json += "\n\"" + name + "\" : " + value;
+        this.json += "\n\"" + name + "\" : " + value;
 
         return this;
     }
 
 
     public JSONWriter addArrayItem(JSONWriter item) {
-        if (isFirstField) {
-            isFirstField = false;
+        if (this.isFirstField) {
+            this.isFirstField = false;
         } else {
-            json += ",";
+            this.json += ",";
         }
-        json += "\n" + item.toString();
+        this.json += "\n" + item.toString();
 
         return this;
     }
 
     public JSONWriter startArray(String name) {
-        if (!isFirstField) {
-            json += ",";
+        if (!this.isFirstField) {
+            this.json += ",";
         }
-        isFirstField = true;
-        json += "\"" + name + "\" : [";
+        this.isFirstField = true;
+        this.json += "\"" + name + "\" : [";
 
         return this;
     }
 
     public JSONWriter closeArray() {
-        json += "\n]";
+        this.json += "\n]";
 
         return this;
     }
 
     public JSONWriter startObject() {
-        json += "{";
-        isFirstField = true;
+        this.json += "{";
+        this.isFirstField = true;
         return this;
     }
 
     public JSONWriter closeObject() {
-        json += "\n}";
+        this.json += "\n}";
         return this;
     }
 

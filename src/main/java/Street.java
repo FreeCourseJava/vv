@@ -11,24 +11,24 @@ public class Street {
     private DynamicArray buildings;
     public DynamicArray parks;
 
-    public Street(String jsonStr) {
+    public Street(String jsonStr) throws JsonReadException {
         JSONReader json = new JSONReader(jsonStr);
-        this.name = json.getStrFiled("name");;
-        this.registryNumber = json.getIntFiled("registryNumber");;
-        this.isMainRoad = json.getBooleanFiled("isMainRoad");;
-        this.length = json.getIntFiled("length");;
-        this.avgWidth = json.getIntFiled("avgWidth");;
+        this.name = json.getStrFiled("name");
+        this.registryNumber = json.getIntFiled("registryNumber");
+        this.isMainRoad = json.getBooleanFiled("isMainRoad");
+        this.length = json.getIntFiled("length");
+        this.avgWidth = json.getIntFiled("avgWidth");
 
         this.buildings = new DynamicArray();
         String [] buildingsStr = json.getArrayFiled("buildings");
-        for (int i=0; i<buildingsStr.length; i++){
-            this.buildings.add(new Building(buildingsStr[i]));
+        for (String s : buildingsStr) {
+            this.buildings.add(new Building(s));
         }
 
         this.parks = new DynamicArray();
         String [] parksStr = json.getArrayFiled("parks");
-        for (int i=0; i<parksStr.length; i++){
-            this.parks.add(new Park(parksStr[i]));
+        for (String s : parksStr) {
+            this.parks.add(new Park(s));
         }
     }
 
