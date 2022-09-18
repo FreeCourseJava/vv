@@ -8,6 +8,20 @@ public class City {
     public int maxLength;
     private DynamicArray streets;
 
+    public City(String jsonStr) throws JsonReadException {
+        JSONReader json = new JSONReader(jsonStr);
+        this.name = json.getStrFiled("name");
+        this.maxWidth = json.getIntFiled("maxWidth");
+        this.maxLength = json.getIntFiled("maxLength");
+
+        this.streets = new DynamicArray();
+        String [] streetStr = json.getArrayFiled("streets");
+        for (String s : streetStr) {
+            this.streets.add(new Street(s));
+        }
+
+    }
+
     public City (String name, int maxWidth, int maxLength, DynamicArray streets) {
         this(name, maxWidth, maxLength);
         this.streets = streets;
@@ -55,5 +69,21 @@ public class City {
         return result;
     }
 
+    public JSONWriter getJson () {
+        JSONWriter res = new JSONWriter().startObject();
+        res.startArray("streets");
+        for (int i=0; i<this.streets.getSize();i++) {
+            res.addArrayItem(((Street) this.streets.getItem(i)).getJson());
+        }
+        res.closeArray();
 
+        res.addStrField("name", name)
+                .addIntField("maxWidth",this.maxWidth)
+                .addIntField("maxLength", this.maxLength);
+
+        return res.closeObject();
+    }
+    public String getJsonString() {
+        return this.getJson().toString();
+    }
 }

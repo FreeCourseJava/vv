@@ -13,9 +13,28 @@ public class Building {
         this.width = width;
     }
 
-    public int calcArea () {
+    public Building(String jsonStr) throws JsonReadException {
+        JSONReader json = new JSONReader(jsonStr);
+        this.number = json.getIntFiled("number");
+        this.length = json.getIntFiled("length");
+        this.width = json.getIntFiled("width");
+    }
+
+    public int calcArea() {
         return multiplyExact(this.length, this.width);
     }
 
+    public JSONWriter getJson() {
+        return new JSONWriter()
+                .startObject()
+                .addIntField("number", number)
+                .addIntField("length", length)
+                .addIntField("width", width)
+                .closeObject();
+    }
+
+    public String getJsonString() {
+        return getJson().toString();
+    }
 
 }
