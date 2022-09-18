@@ -11,6 +11,27 @@ public class Street {
     private DynamicArray buildings;
     public DynamicArray parks;
 
+    public Street(String jsonStr) {
+        JSONReader json = new JSONReader(jsonStr);
+        this.name = json.getStrFiled("name");;
+        this.registryNumber = json.getIntFiled("registryNumber");;
+        this.isMainRoad = json.getBooleanFiled("isMainRoad");;
+        this.length = json.getIntFiled("length");;
+        this.avgWidth = json.getIntFiled("avgWidth");;
+
+        this.buildings = new DynamicArray();
+        String [] buildingsStr = json.getArrayFiled("buildings");
+        for (int i=0; i<buildingsStr.length; i++){
+            this.buildings.add(new Building(buildingsStr[i]));
+        }
+
+        this.parks = new DynamicArray();
+        String [] parksStr = json.getArrayFiled("parks");
+        for (int i=0; i<parksStr.length; i++){
+            this.parks.add(new Park(parksStr[i]));
+        }
+    }
+
     public Street (String name, int length, int avgWidth) {
         this.name = name;
         this.length = length;
@@ -56,9 +77,9 @@ public class Street {
     }
 
 
-    public JSON getJson () {
-        JSON res = new JSON().startObject();
-        res.startArray("building");
+    public JSONWriter getJson () {
+        JSONWriter res = new JSONWriter().startObject();
+        res.startArray("buildings");
         for (int i=0; i<this.buildings.getSize();i++) {
             res.addArrayItem(((Building) this.buildings.getItem(i)).getJson());
         }

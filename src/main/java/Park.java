@@ -7,6 +7,13 @@ public class Park {
     public int length;
     public int width;
 
+    public Park(String jsonStr) {
+        JSONReader json = new JSONReader(jsonStr);
+        this.name = json.getStrFiled("name");
+        this.length = json.getIntFiled("length");
+        this.width = json.getIntFiled("width");
+    }
+
     public Park (String name, int length, int width ) {
         this.name = name;
         this.length = length;
@@ -17,8 +24,8 @@ public class Park {
         return multiplyExact(this.length, this.width);
     }
 
-    public JSON getJson() {
-        return new JSON()
+    public JSONWriter getJson() {
+        return new JSONWriter()
                 .startObject()
                 .addStrField("name", name)
                 .addIntField("length", length)

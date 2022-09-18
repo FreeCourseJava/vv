@@ -1,12 +1,12 @@
 package main.java;
 
-public class JSON {
+public class JSONWriter {
 
     private String json = "";
     // если массив или объект только создан и в нём ещё нет данных
     private boolean isFirstField = true;
 
-    public JSON addIntField(String name, int value) {
+    public JSONWriter addIntField(String name, int value) {
         if (isFirstField) {
             isFirstField = false;
         } else {
@@ -17,7 +17,7 @@ public class JSON {
         return this;
     }
 
-    public JSON addStrField(String name, String value) {
+    public JSONWriter addStrField(String name, String value) {
         if (isFirstField) {
             isFirstField = false;
         } else {
@@ -28,7 +28,7 @@ public class JSON {
         return this;
     }
 
-    public JSON addBooleanField(String name, boolean value) {
+    public JSONWriter addBooleanField(String name, boolean value) {
         if (isFirstField) {
             isFirstField = false;
         } else {
@@ -40,7 +40,7 @@ public class JSON {
     }
 
 
-    public JSON addArrayItem(JSON item) {
+    public JSONWriter addArrayItem(JSONWriter item) {
         if (isFirstField) {
             isFirstField = false;
         } else {
@@ -51,7 +51,7 @@ public class JSON {
         return this;
     }
 
-    public JSON startArray(String name) {
+    public JSONWriter startArray(String name) {
         if (!isFirstField) {
             json += ",";
         }
@@ -61,19 +61,19 @@ public class JSON {
         return this;
     }
 
-    public JSON closeArray() {
+    public JSONWriter closeArray() {
         json += "\n]";
 
         return this;
     }
 
-    public JSON startObject() {
+    public JSONWriter startObject() {
         json += "{";
         isFirstField = true;
         return this;
     }
 
-    public JSON closeObject() {
+    public JSONWriter closeObject() {
         json += "\n}";
         return this;
     }
@@ -82,5 +82,6 @@ public class JSON {
     public String toString() {
         return this.json;
     }
+
 
 }

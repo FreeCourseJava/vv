@@ -13,18 +13,19 @@ public class Building {
         this.width = width;
     }
 
-    public Building(JSON json) {
-        this.number = number;
-        this.length = length;
-        this.width = width;
+    public Building(String jsonStr) {
+        JSONReader json = new JSONReader(jsonStr);
+        this.number = json.getIntFiled("number");
+        this.length = json.getIntFiled("length");
+        this.width = json.getIntFiled("width");
     }
 
     public int calcArea() {
         return multiplyExact(this.length, this.width);
     }
 
-    public JSON getJson() {
-        return new JSON()
+    public JSONWriter getJson() {
+        return new JSONWriter()
                 .startObject()
                 .addIntField("number", number)
                 .addIntField("length", length)
